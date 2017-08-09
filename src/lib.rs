@@ -1,14 +1,7 @@
-use std::env::args;
 use std::process::{Command, exit};
 
-fn main() {
+pub fn run_sub<I: Iterator<Item = String>>(rustc: &str, mut it: I) {
     let mut a = vec![];
-    let mut it = args();
-    // Remove the first argument, as it is just a reference to the current
-    // executable.
-    it.next().unwrap();
-    // The executable we're going to want to run is the next argument.
-    let rustc = it.next().expect("Expected rustc executable name.");
     while let Some(arg) = it.next() {
         if arg == "-C" {
             if let Some(arg2) = it.next() {
